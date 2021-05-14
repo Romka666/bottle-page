@@ -58,6 +58,8 @@ document.querySelectorAll('.btl_card button').forEach(item => {
                 document.getElementById("packsQuantenty").append(quantetyNode);
             }
             product.amount = newQuantety;
+            document.querySelector(`input[product-type='${typeProduct}']`).value = newQuantety;
+
         } else if (elem.getAttribute("type-action") == 'decrease' && inputElem.value > 0) {
             currentQuantety = parseInt(inputElem.getAttribute('quantety'));
             newQuantety = currentQuantety - 1;
@@ -66,7 +68,7 @@ document.querySelectorAll('.btl_card button').forEach(item => {
             inputElem.value = newQuantety;
             product.amount = newQuantety;
             quantetyNode.value = product.amount;
-
+            document.querySelector(`input[product-type='${typeProduct}']`).value = newQuantety;
             //remove element from list if quantety is 0 of product
             if (product.amount == 0) {
                 //remove from  product list
@@ -77,6 +79,7 @@ document.querySelectorAll('.btl_card button').forEach(item => {
                 let removeNodeInput = document.querySelector(`input[product-type='${typeProduct}']`);
                 removeNodeInput.parentNode.removeChild(removeNodeInput);
             }
+
         }
         quantetyNode.value = newQuantety;
         totalPrice = Number(totalPrice.toFixed(2));
