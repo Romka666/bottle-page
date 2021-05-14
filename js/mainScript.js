@@ -28,7 +28,6 @@ let modal = document.getElementById('myModal');
 
 document.querySelectorAll('.btl_card button').forEach(item => {
     item.addEventListener('click', event => {
-
         let elem = event.target; //clicked btn
         let inputElem = elem.parentElement.getElementsByTagName('input')[0]; //input elem
         let typeProduct = parseInt(elem.getAttribute("product-type")); // 6 ,12 ,24 bottels
@@ -57,11 +56,8 @@ document.querySelectorAll('.btl_card button').forEach(item => {
                 quantetyNode.setAttribute("class", "inputBill");
                 quantetyNode.setAttribute("readonly", "");
                 document.getElementById("packsQuantenty").append(quantetyNode);
-
             }
             product.amount = newQuantety;
-
-
         } else if (elem.getAttribute("type-action") == 'decrease' && inputElem.value > 0) {
             currentQuantety = parseInt(inputElem.getAttribute('quantety'));
             newQuantety = currentQuantety - 1;
@@ -82,17 +78,9 @@ document.querySelectorAll('.btl_card button').forEach(item => {
                 removeNodeInput.parentNode.removeChild(removeNodeInput);
             }
         }
-
         quantetyNode.value = newQuantety;
-
-
-
-
-
-
         totalPrice = Number(totalPrice.toFixed(2));
         document.getElementById("total").innerHTML = totalPrice;
-
         //clear total price
         if (totalPrice == "0") {
             document.getElementById("total").innerHTML = '';
@@ -100,10 +88,8 @@ document.querySelectorAll('.btl_card button').forEach(item => {
     })
 })
 
-
 //validation and open modal
 document.getElementById("checkout").addEventListener('click', function (event) {
-
     event.preventDefault();
     let firstName = document.getElementById("fname").value;
     let lastName = document.getElementById("lname").value;
@@ -120,7 +106,6 @@ document.getElementById("checkout").addEventListener('click', function (event) {
                     let textnode = document.createTextNode(`${firstName}  ${lastName} , you ordered`);
                     node.append(textnode);
                     document.getElementById("modal-content").append(node);
-
                     pursheList.forEach(item => {
                         if (item.amount > 0) {
                             let str = `${item.amount} packs of ${item.title}`
@@ -129,7 +114,6 @@ document.getElementById("checkout").addEventListener('click', function (event) {
                             textnode = document.createTextNode(`${str}`);
                             node.append(textnode);
                             document.getElementById("modal-content").append(node);
-
                         }
                     })
                     node = document.createElement("P");
@@ -137,7 +121,6 @@ document.getElementById("checkout").addEventListener('click', function (event) {
                     textnode = document.createTextNode('Thank You!');
                     node.append(textnode);
                     document.getElementById("modal-content").append(node);
-
                     // Get the button that opens the modal
                     modal.style.display = 'block';
                     //close button in modal
@@ -145,7 +128,6 @@ document.getElementById("checkout").addEventListener('click', function (event) {
                 } else {
                     errorMsg = 'required correct form of email';
                 }
-
             } else {
                 errorMsg = 'required  email';
             }
@@ -155,7 +137,6 @@ document.getElementById("checkout").addEventListener('click', function (event) {
     } else {
         errorMsg = 'first name should contain 2-70 letters';
     }
-
     document.getElementById("errorMsg").innerHTML = errorMsg
 });
 
