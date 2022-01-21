@@ -29,7 +29,7 @@
                             title="6 bottle pack">+</button>
                         <input class="inputQuantety" quantety="0" class="quantity1" type="text" readonly=""
                             placeholder="0">
-                        <button type-action="decrease" product-type='6' price_d="2.5"
+                        <button type-action="decrease" product-type='6' price="2.5"
                             class="remove ml-1 mr-1">-</button>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                             title="12 bottle pack">+</button>
                         <input class="inputQuantety" quantety="0" class="quantity2" type="text" readonly=""
                             placeholder="0">
-                        <button type-action="decrease" product-type='12' price_d="4.6"
+                        <button type-action="decrease" product-type='12' price="4.6"
                             class="remove ml-1 mr-1">-</button>
                     </div>
 
@@ -56,7 +56,7 @@
                             title="24 bottle pack">+</button>
                         <input class="inputQuantety" quantety="0" class="quantity3" type="text" readonly=""
                             placeholder="0">
-                        <button type-action="decrease" product-type='24' price_d="9" class="remove ml-1 mr-1">-</button>
+                        <button type-action="decrease" product-type='24' price="9" class="remove ml-1 mr-1">-</button>
                     </div>
                 </div>
 

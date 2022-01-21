@@ -29,18 +29,17 @@ let cardsEvents=document.querySelectorAll('.btl_card button');
 cardsEvents.forEach(item => {
     item.addEventListener('click', event => {
         let elem = event.target; //clicked btn
-        let addProduct=elem.getAttribute("type-action");
+        let typeOfAction=elem.getAttribute("type-action");
         let inputElem = elem.parentElement.getElementsByTagName('input')[0]; //input elem
         let typeProduct = parseInt(elem.getAttribute("product-type")); // 6 ,12 ,24 bottels
         let quantetyNode = document.createElement("input");
         let product = pursheList.find(product => product.type == typeProduct);
-        if (addProduct == 'add') {
-            totalPrice += parseFloat(elem.getAttribute('price'))
-            currentQuantety = parseInt(inputElem.getAttribute('quantety'));
-            newQuantety = currentQuantety + 1;
-            inputElem.setAttribute("quantety", newQuantety);
-            inputElem.value = newQuantety;
-            if (product.amount == 0) {
+        let elementPrice= elem.getAttribute('price');
+        if(inputElem.value>=0){
+            inputElem.value=addRemoveProduct(inputElem,typeOfAction,elementPrice);
+        }
+
+        if (product.amount == 0) {
                 //add to product if not in the cart
                 let node = document.createElement("P");
                 node.setAttribute("product-type", typeProduct);
@@ -58,25 +57,20 @@ cardsEvents.forEach(item => {
                 quantetyNode.setAttribute("readonly", "");
                 document.getElementById("packsQuantenty").append(quantetyNode);
             }
-            product.amount = newQuantety;
-            document.querySelector(`input[product-type='${typeProduct}']`).value = newQuantety;
+            product.amount =  inputElem.value;
+            document.querySelector(`input[product-type='${typeProduct}']`).value =  inputElem.value;
 
-        } else if (addProduct == 'decrease' && inputElem.value > 0) {
-            currentQuantety = parseInt(inputElem.getAttribute('quantety'));
-            newQuantety = currentQuantety - 1;
-            inputElem.setAttribute("quantety", newQuantety);
-            totalPrice -= parseFloat(elem.getAttribute('price_d'))
-            inputElem.value = newQuantety;
-            product.amount = newQuantety;
+        if (inputElem.value > 0) {
+            product.amount =  inputElem.value;
             quantetyNode.value = product.amount;
-            document.querySelector(`input[product-type='${typeProduct}']`).value = newQuantety;
-            //remove element from list if quantety is 0 of product
-            if (product.amount == 0) {
-                //remove from  product list
-               removeFromList(typeProduct);
-            }
-
+            document.querySelector(`input[product-type='${typeProduct}']`).value =  inputElem.value;
         }
+            //remove element from list if quantety is 0 of product
+        if (product.amount == 0 || inputElem.value==0) {
+               //remove from  product list
+          removeFromList(typeProduct);
+        }
+
         quantetyNode.value = newQuantety;
         totalPrice = Number(totalPrice.toFixed(2));
         document.getElementById("total").innerHTML = totalPrice;
@@ -84,15 +78,25 @@ cardsEvents.forEach(item => {
         if (totalPrice == "0") {
             document.getElementById("total").innerHTML = '';
         }
-    })
-})
+    });
+});
+                  
+function addRemoveProduct(inputElem,typeOfAction,elementPrice){
+       let currentQuantety = parseInt(inputElem.getAttribute('quantety'));
+       let newQuantety=0;
+       if(typeOfAction=='add'){
+            totalPrice += parseFloat(elementPrice);
+            newQuantety = currentQuantety + 1;
+            inputElem.value = newQuantety;
+       }
 
-function addProduct(){
-
-}
-
-function removeProduct(){
-    
+       if(typeOfAction=='decrease' && inputElem.value>0){
+           totalPrice -= parseFloat(elementPrice);
+            newQuantety = currentQuantety - 1;
+       }
+        inputElem.setAttribute("quantety", newQuantety);
+        inputElem.value = newQuantety;
+      return inputElem.value;
 }
 
 function removeFromList(typeProduct){
