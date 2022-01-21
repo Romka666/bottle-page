@@ -25,15 +25,16 @@ let pursheList = [{
 ];
 
 let modal = document.getElementById('myModal');
-
-document.querySelectorAll('.btl_card button').forEach(item => {
+let cardsEvents=document.querySelectorAll('.btl_card button');
+cardsEvents.forEach(item => {
     item.addEventListener('click', event => {
         let elem = event.target; //clicked btn
+        let addProduct=elem.getAttribute("type-action");
         let inputElem = elem.parentElement.getElementsByTagName('input')[0]; //input elem
         let typeProduct = parseInt(elem.getAttribute("product-type")); // 6 ,12 ,24 bottels
         let quantetyNode = document.createElement("input");
         let product = pursheList.find(product => product.type == typeProduct);
-        if (elem.getAttribute("type-action") == 'add') {
+        if (addProduct == 'add') {
             totalPrice += parseFloat(elem.getAttribute('price'))
             currentQuantety = parseInt(inputElem.getAttribute('quantety'));
             newQuantety = currentQuantety + 1;
@@ -60,7 +61,7 @@ document.querySelectorAll('.btl_card button').forEach(item => {
             product.amount = newQuantety;
             document.querySelector(`input[product-type='${typeProduct}']`).value = newQuantety;
 
-        } else if (elem.getAttribute("type-action") == 'decrease' && inputElem.value > 0) {
+        } else if (addProduct == 'decrease' && inputElem.value > 0) {
             currentQuantety = parseInt(inputElem.getAttribute('quantety'));
             newQuantety = currentQuantety - 1;
             inputElem.setAttribute("quantety", newQuantety);
@@ -72,12 +73,7 @@ document.querySelectorAll('.btl_card button').forEach(item => {
             //remove element from list if quantety is 0 of product
             if (product.amount == 0) {
                 //remove from  product list
-                let removeNodeName = document.querySelector(`P[product-type='${typeProduct}']`);
-                removeNodeName.parentNode.removeChild(removeNodeName);
-                let removeNodeText = document.querySelector(`P[product-type='${typeProduct}']`);
-                removeNodeText.parentNode.removeChild(removeNodeText);
-                let removeNodeInput = document.querySelector(`input[product-type='${typeProduct}']`);
-                removeNodeInput.parentNode.removeChild(removeNodeInput);
+               removeFromList(typeProduct);
             }
 
         }
@@ -91,6 +87,23 @@ document.querySelectorAll('.btl_card button').forEach(item => {
     })
 })
 
+function addProduct(){
+
+}
+
+function removeProduct(){
+    
+}
+
+function removeFromList(typeProduct){
+    let removeNodeName = document.querySelector(`P[product-type='${typeProduct}']`);
+    removeNodeName.parentNode.removeChild(removeNodeName);
+    let removeNodeText = document.querySelector(`P[product-type='${typeProduct}']`);
+    removeNodeText.parentNode.removeChild(removeNodeText);
+    let removeNodeInput = document.querySelector(`input[product-type='${typeProduct}']`);
+    removeNodeInput.parentNode.removeChild(removeNodeInput);
+}
+
 //validation and open modal
 document.getElementById("checkout").addEventListener('click', function (event) {
     event.preventDefault();
@@ -98,7 +111,7 @@ document.getElementById("checkout").addEventListener('click', function (event) {
     let lastName = document.getElementById("lname").value;
     let email = document.getElementById("email").value;
     let emailRegex = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$";
-    let lettersRegex = "^[a-zA-Z]{2,70}$";
+    let lettersRegex = "^[a-zA-Z0-9._-]{2,70}$";
     let errorMsg = '';
     if (firstName.match(lettersRegex)) {
         if (lastName.match(lettersRegex)) {
