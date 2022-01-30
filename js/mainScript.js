@@ -71,7 +71,7 @@ cardsEvents.forEach(item => {
           removeFromList(typeProduct);
         }
 
-        quantetyNode.value = newQuantety;
+        quantetyNode.value = inputElem.value;
         totalPrice = Number(totalPrice.toFixed(2));
         document.getElementById("total").innerHTML = totalPrice;
         //clear total price
