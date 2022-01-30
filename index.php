@@ -90,15 +90,15 @@
                             <input type="text" class="form-control" id="email">
                         </div>
                         <div class="row">
-                            <div class="col-4" id="biling_cart">
+                            <div class="col-5 col-md-4" id="biling_cart">
 
                             </div>
 
-                            <div id="billPackText" class="col-4">
+                            <div id="billPackText" class="col-5 col-md-4">
 
                             </div>
 
-                            <div id=packsQuantenty class="col-4">
+                            <div id=packsQuantenty class="col-2 col-md-4">
 
                             </div>
                         </div>
